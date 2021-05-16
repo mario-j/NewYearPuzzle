@@ -34,7 +34,7 @@ class PuzzleBoard():
 
 
 		#TODO: Check if piece can be placed without intersecting another placed piece
-		
+
 
 		return True
 
@@ -83,7 +83,7 @@ def parse_input(filepath) :
 		board_length, board_width = file_contents[0].strip().split(",")
 		parsed['board']['length'] = int(board_length)
 		parsed['board']['width'] = int(board_width)
-		for i in range(len(file_contents)):
+		for i in range(1, len(file_contents)):
 			pid, l, w = file_contents[i].strip().split(",")
 			pid, l, w = int(pid), int(l), int(w)
 			parsed['pieces'][pid] = {}
@@ -123,7 +123,7 @@ def solve5(board, pieces):
 							piece3.rotate()
 							for i4 in range(len(pieces)):
 								if i4 in [i1, i2, i3]:
-									continue  
+									continue
 								piece4 = pieces[i4]
 								for _ in range(2):
 									piece4.rotate()
@@ -133,7 +133,7 @@ def solve5(board, pieces):
 										piece5 = pieces[i5]
 										for _ in range(2):
 											piece5.rotate()
-											solved = helper(board.copy(), [piece1, piece2, 
+											solved = helper(board.copy(), [piece1, piece2,
 																	piece3, piece4, piece5])
 											if solved:
 												new_board, used_pieces = solved
