@@ -198,7 +198,7 @@ def main():
 	for k, v in parsed['pieces'].items():
 		pieces.append(PuzzlePiece(k, v['length'], v['width']))
 	# solved = solve5(board, pieces)
-	solved = solve(board, pieces)
+	solved = solve5(board, pieces)
 	if not solved:
 		print("No solution found for given input.")
 	else:
