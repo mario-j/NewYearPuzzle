@@ -65,18 +65,19 @@ class PuzzlePiece():
 		self.w = width
 
 	def rotate(self):
-		#TODO: Bug in this function. Pieces are not rotating correctly
-		self.l = self.w
+		#(RESOLVED) TODO: Bug in this function. Pieces are not rotating correctly
+		temp_w = self.w
 		self.w = self.l
+		self.l = temp_w
 
 	def orientation(self):
 		return "H" if self.w >= self.l else "V"
 
 	def __str__(self):
-		return f"ID: {self.id}, LENGTH: {self.l}, WIDTH: {self.w}, ROTATED: {self.rotated}"
+		return f"ID: {self.id}, LENGTH: {self.l}, WIDTH: {self.w}"
 
 def parse_input(filepath) :
-	#TODO: Bug in this function. Error raised when called
+	# (RESOLVED) TODO: Bug in this function. Error raised when called.
 	parsed = {'board' : {}, 'pieces' : {}}
 	with open(filepath) as f:
 		file_contents = f.read().strip().split("\n")
@@ -108,7 +109,9 @@ def solve5(board, pieces):
 	for i1 in range(len(pieces)):
 		piece1 = pieces[i1]
 		for _ in range(2):
+			print(piece1)
 			piece1.rotate()
+			print(piece1)
 			for i2 in range(len(pieces)):
 				if i2 == i1:
 					continue
