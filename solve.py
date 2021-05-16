@@ -30,10 +30,15 @@ class PuzzleBoard():
 		if not position:
 			return False
 
-		#TODO: Check if any part of the piece is out of bounds
+		# (Tentative) TODO: Check if any part of the piece is out of bounds
+		if ((position[0] + piece.l > self.l) or (position[1] + piece.w > self.w)):
+			return False
 
-
-		#TODO: Check if piece can be placed without intersecting another placed piece
+		# (Tentative) TODO: Check if piece can be placed without intersecting another placed piece
+		for i in range(position[0], piece.l) :
+			for j in range(position[1], piece.w):
+				if (self.state[i][j] != 0):
+					return False
 
 
 		return True
@@ -41,11 +46,11 @@ class PuzzleBoard():
 	# Input: piece - PuzzlePiece object
 	# Insert piece into the next available position on the board and update state
 	def place(self, piece):
-		# TODO: Bug in this function. Pieces not being placed correctly.
+		# (Tentative) TODO: Bug in this function. Pieces not being placed correctly.
 		position = self.__next()
-		for i in range(position[0], position[0] + piece.w):
+		for i in range(position[0], position[0] + piece.l):
 			for j in range(position[1], position[1] + piece.w):
-				self.state[j][i] = piece.id
+				self.state[i][j] = piece.id
 		return position
 
 	# Returns whether the board has been filledwith pieces
@@ -109,9 +114,7 @@ def solve5(board, pieces):
 	for i1 in range(len(pieces)):
 		piece1 = pieces[i1]
 		for _ in range(2):
-			print(piece1)
 			piece1.rotate()
-			print(piece1)
 			for i2 in range(len(pieces)):
 				if i2 == i1:
 					continue
