@@ -11,8 +11,12 @@ class PuzzleBoard():
 	# Input: point - tuple cotaining (row_index, col_index) of point in self.state
 	# Returns true if point is out of bounds; otherwise, returns false
 	def __out_of_bounds(self, point):
-		# TODO: Implement this function
-		return False
+		# (RESOLVED) TODO: Implement this function
+		position = self.__next()
+		if ((position[0] + point[0] > self.l) or (position[1] + point[1] > self.w)):
+			return True
+		else:
+			return False
 
 	# Finds the next available open space in the PuzzleBoard (looking from the top-left in row-major order)
 	def __next(self):
@@ -30,23 +34,23 @@ class PuzzleBoard():
 		if not position:
 			return False
 
-		# (Tentative) TODO: Check if any part of the piece is out of bounds
-		if ((position[0] + piece.l > self.l) or (position[1] + piece.w > self.w)):
+		# (RESOLVED) TODO: Check if any part of the piece is out of bounds
+		point = (piece.l, piece.w)
+		if (self.__out_of_bounds(point)):
 			return False
 
-		# (Tentative) TODO: Check if piece can be placed without intersecting another placed piece
+		# (RESOLVED) TODO: Check if piece can be placed without intersecting another placed piece
 		for i in range(position[0], piece.l) :
 			for j in range(position[1], piece.w):
 				if (self.state[i][j] != 0):
 					return False
-
 
 		return True
 
 	# Input: piece - PuzzlePiece object
 	# Insert piece into the next available position on the board and update state
 	def place(self, piece):
-		# (Tentative) TODO: Bug in this function. Pieces not being placed correctly.
+		# (RESOLVED) TODO: Bug in this function. Pieces not being placed correctly.
 		position = self.__next()
 		for i in range(position[0], position[0] + piece.l):
 			for j in range(position[1], position[1] + piece.w):
