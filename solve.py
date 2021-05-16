@@ -1,6 +1,5 @@
 import argparse, copy
 
-
 class PuzzleBoard():
 
 	def __init__(self, board_length, board_width):
@@ -152,7 +151,39 @@ def solve5(board, pieces):
 	return False
 
 def solve(board, remaining, used_pieces=[]):
-	# TODO: Implement a solution for a variable amount of pieces and puzzle board size.
+	#I couldn't figure out an implementation so here's some pseudocode to explain the approach I was attempting
+
+	# Base case
+	if (number_of_unchecked_permutations == 0)
+		return False
+
+	current_permutation_fits(used_pieces) # Check if current permutation of used pieces fits on board
+	remaining[0].rotate() # Rotate a piece in the remaining pieces
+	solve(board, remaining) # Recursively call solve on new permutations of the remaining pieces until all have been exhausted
+
+	recursively call solve on a new permutation with 1 piece rotated
+
+	num_pieces = len(remaining)
+	orientation = ['H' for i in range(num_pieces)]
+	perms = []
+	perms = perms + list(multiset_permutations(orientation))
+	for i in (range(num_pieces)):
+		orientation.pop(orientation.index('H'))
+		orientation.append('V')
+		perms = perms + list(multiset_permutations(orientation))
+
+	for perm in perms:
+		print(perm)
+		for i in (range(len(remaining))):
+			if (perm[i] != remaining[i].orientation() and remaining[i].l != remaining[i].w):
+				remaining[i].rotate()
+			# print(perm[i], remaining[i].orientation(), perm[i] == remaining[i].orientation())
+
+		solved = helper(board.copy(), remaining)
+		if solved:
+			new_board, used_pieces = solved
+			if new_board.completed():
+				return new_board, used_pieces
 	# HINT: Recursion might help.
 	pass
 
@@ -166,7 +197,8 @@ def main():
 	pieces = []
 	for k, v in parsed['pieces'].items():
 		pieces.append(PuzzlePiece(k, v['length'], v['width']))
-	solved = solve5(board, pieces)
+	# solved = solve5(board, pieces)
+	solved = solve(board, pieces)
 	if not solved:
 		print("No solution found for given input.")
 	else:
